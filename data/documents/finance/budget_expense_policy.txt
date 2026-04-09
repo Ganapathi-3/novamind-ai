@@ -1,0 +1,90 @@
+TECHNOVA INC. — BUDGET AND EXPENSE POLICY
+==========================================
+Department: Finance
+Access: Admin and Finance Team Only
+Confidential Document
+
+ANNUAL BUDGET OVERVIEW FY 2024-25
+-----------------------------------
+Total Company Budget: 15 Crore INR (150,000,000 rupees)
+
+Budget Allocation by Department:
+  Engineering and Product:   6.75 Crore  (45 percent)
+  Sales and Marketing:       2.25 Crore  (15 percent)
+  Data Science and AI:       1.50 Crore  (10 percent)
+  Operations:                1.50 Crore  (10 percent)
+  Customer Success:          1.05 Crore  (7 percent)
+  HR and Admin:              0.90 Crore  (6 percent)
+  Finance and Legal:         0.75 Crore  (5 percent)
+  Contingency Reserve:       0.30 Crore  (2 percent)
+
+REVENUE TARGETS FY 2024-25
+---------------------------
+Q1 Target (April to June 2024):     3.2 Crore
+Q2 Target (July to September 2024): 3.8 Crore
+Q3 Target (October to December 2024): 4.5 Crore
+Q4 Target (January to March 2025):  5.0 Crore
+Annual Revenue Target:              16.5 Crore
+
+Current MRR (as of March 2024): 93.3 Lakhs
+ARR (as of March 2024):         11.2 Crore
+Customer Count: 312
+Average Revenue Per Account (ARPA): 3.59 Lakhs per year
+Net Revenue Retention (NRR): 118 percent
+Gross Margin: 72 percent
+
+EXPENSE APPROVAL LIMITS
+------------------------
+Below 5000 rupees: No approval required, submit receipt within 7 days
+5000 to 25000 rupees: Manager approval required before spending
+25000 to 1 Lakh rupees: VP approval required before spending
+1 Lakh to 5 Lakhs rupees: CEO or CFO approval required
+Above 5 Lakhs rupees: Board approval required
+
+All approved expenses must be submitted in the expense management system (Zoho Expense).
+Receipts are mandatory for all expenses above 500 rupees.
+Cash expenses above 2000 rupees are not reimbursed — use company card.
+
+VENDOR PAYMENTS
+---------------
+Standard payment terms: Net 30 days from invoice date
+Early payment discount: Negotiate 2 percent discount for Net 7 payments
+Minimum 3 vendor quotes required for any purchase above 1 Lakh rupees
+All vendor contracts above 5 Lakhs must be reviewed by the legal team
+Preferred payment method: NEFT or RTGS (no cash payments to vendors)
+
+CLOUD INFRASTRUCTURE BUDGET
+-----------------------------
+AWS monthly budget: 8 Lakhs rupees
+Google Cloud (GCP): 1.5 Lakhs rupees per month
+Azure: 50000 rupees per month (for Microsoft integrations only)
+
+Cost optimization reviews are conducted monthly by DevOps and Finance.
+Reserved instances must be purchased for workloads running more than 6 months.
+Unused resources must be shut down — Finance reviews idle resources every Monday.
+
+FUNDRAISING STATUS
+------------------
+Seed Round (Completed): 2 Crore INR raised in 2022
+Series A (Completed): 12 Crore INR raised in 2023 — Lead investor: Sequoia Capital India
+Series B (Planned): Target 25 Crore INR at 120 Crore valuation — Expected Q3 2024
+Key Series B investors in discussion: A16Z, Bessemer Ventures, Lightspeed India
+
+FINANCIAL KPIS TRACKED MONTHLY
+--------------------------------
+Revenue growth rate (target: 35 percent year-over-year)
+Gross margin (target: above 70 percent)
+Customer Acquisition Cost or CAC (target: below 80000 rupees)
+Lifetime Value or LTV (target: above 4 Lakhs per customer)
+LTV to CAC ratio (target: above 5x)
+Monthly cash burn rate (current: 65 Lakhs per month)
+Runway (current: 18 months)
+Churn rate (target: below 3 percent monthly)
+
+CONFIDENTIALITY NOTICE
+-----------------------
+This document contains highly sensitive financial information.
+Unauthorized disclosure may constitute a breach of confidentiality agreement.
+Do not share outside the Finance and Executive team.
+Violations will result in immediate disciplinary action.
+Contact: cfo@technova.com for finance queries.

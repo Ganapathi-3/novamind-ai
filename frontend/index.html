@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>NovaMind AI · Enterprise Assistant</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config={theme:{extend:{colors:{navy:{DEFAULT:'#0f172a'},brand:{DEFAULT:'#4f46e5'}},fontFamily:{sans:['Inter','system-ui','sans-serif']}}}}</script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#f8fafc;color:#0f172a}
+.page{display:none}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:10px}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse2{0%,100%{opacity:1}50%{opacity:.4}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.msg-appear{animation:fadeUp .25s ease forwards}
+.dot-pulse span{display:inline-block;width:7px;height:7px;border-radius:50%;background:#94a3b8;animation:pulse2 1.2s ease infinite}
+.dot-pulse span:nth-child(2){animation-delay:.2s}
+.dot-pulse span:nth-child(3){animation-delay:.4s}
+.spinner{width:16px;height:16px;border:2px solid #e2e8f0;border-top-color:#4f46e5;border-radius:50%;animation:spin .7s linear infinite;display:inline-block}
+.shimmer{background:linear-gradient(90deg,#f1f5f9 25%,#e2e8f0 50%,#f1f5f9 75%);background-size:200% 100%;animation:shimmer 1.5s infinite}
+input:focus,textarea:focus,select:focus{outline:none;box-shadow:0 0 0 3px rgba(79,70,229,.15)}
+.nav-item{transition:all .15s}.nav-item:hover{background:rgba(255,255,255,.07)}
+.nav-item.active-nav{background:rgba(79,70,229,.25)}
+.tag-admin{background:#ede9fe;color:#5b21b6}.tag-hr{background:#d1fae5;color:#065f46}
+.tag-employee{background:#dbeafe;color:#1e40af}.tag-intern{background:#fef3c7;color:#92400e}
+.dept-pill{background:#f1f5f9;color:#475569;border:1px solid #e2e8f0}
+.dept-pill.public{background:#d1fae5;color:#065f46;border-color:#a7f3d0}
+.dept-pill.hr{background:#fce7f3;color:#9d174d;border-color:#fbcfe8}
+.dept-pill.engineering{background:#dbeafe;color:#1e40af;border-color:#bfdbfe}
+.dept-pill.finance{background:#fef3c7;color:#92400e;border-color:#fde68a}
+.dept-pill.legal{background:#ede9fe;color:#5b21b6;border-color:#ddd6fe}
+.dept-pill.general{background:#f1f5f9;color:#374151;border-color:#e5e7eb}
+.source-badge{background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;font-size:11px;padding:2px 8px;border-radius:4px}
+textarea{resize:none}
+.upload-zone{border:2px dashed #cbd5e1;transition:all .2s}
+.upload-zone:hover,.upload-zone.drag{border-color:#4f46e5;background:#eff6ff}
+.stat-card{transition:all .2s}.stat-card:hover{transform:translateY(-1px)}
+.history-card{transition:all .2s}.history-card:hover{border-color:#a5b4fc}
+.btn-primary{background:#4f46e5;color:#fff;border:none;cursor:pointer;transition:all .15s;font-weight:500}
+.btn-primary:hover{background:#4338ca}.btn-primary:active{transform:scale(.98)}
+.btn-secondary{background:#f8fafc;color:#374151;border:1px solid #e2e8f0;cursor:pointer;transition:all .15s;font-weight:500}
+.btn-secondary:hover{background:#f1f5f9}
+.input-field{border:1px solid #e2e8f0;background:#fff;transition:border .15s}
+.input-field:hover{border-color:#a5b4fc}
+.toast{position:fixed;bottom:24px;right:24px;z-index:9998;animation:fadeUp .3s ease}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="page-login" class="page min-h-screen" style="display:flex;background:linear-gradient(135deg,#0f172a 0%,#1e1b4b 50%,#0f172a 100%)">
+  <div class="flex items-center justify-center min-h-screen w-full p-6">
+    <div class="w-full max-w-md">
+      <div class="text-center mb-8">
+        <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-4" style="background:rgba(79,70,229,.2);border:1px solid rgba(99,102,241,.3)"><span style="font-size:28px">🧠</span></div>
+        <h1 class="text-3xl font-bold text-white tracking-tight">NovaMind AI</h1>
+        <p class="text-slate-400 mt-2 text-sm">Enterprise Knowledge Assistant</p>
+      </div>
+      <div class="bg-white rounded-2xl shadow-2xl overflow-hidden">
+        <div class="flex border-b border-slate-100">
+          <button onclick="switchTab('signin')" id="tab-signin" class="flex-1 py-4 text-sm font-semibold text-indigo-600 border-b-2 border-indigo-600 transition-all">Sign in</button>
+          <button onclick="switchTab('register')" id="tab-register" class="flex-1 py-4 text-sm text-slate-400 border-b-2 border-transparent hover:text-slate-600 transition-all">Create account</button>
+        </div>
+        <div id="form-signin" class="p-8">
+          <div class="space-y-5">
+            <div>
+              <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Username</label>
+              <input id="li-user" type="text" placeholder="e.g. alice_admin" class="input-field w-full px-4 py-3 rounded-xl text-sm" onkeydown="if(event.key==='Enter')doLogin()"/>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Password</label>
+              <div class="relative">
+                <input id="li-pass" type="password" placeholder="••••••••" class="input-field w-full px-4 py-3 rounded-xl text-sm pr-12" onkeydown="if(event.key==='Enter')doLogin()"/>
+                <button onclick="togglePwd('li-pass')" class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 text-xs">👁</button>
+              </div>
+            </div>
+            <button onclick="doLogin()" id="login-btn" class="btn-primary w-full py-3 rounded-xl text-sm flex items-center justify-center gap-2"><span>Sign in to NovaMind</span><span>→</span></button>
+            <div id="login-err" class="hidden text-red-600 text-sm text-center bg-red-50 py-2 px-4 rounded-lg"></div>
+          </div>
+          <div class="mt-6 p-4 rounded-xl" style="background:#f8fafc;border:1px solid #e2e8f0">
+            <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">Demo accounts — click to fill</p>
+            <div class="space-y-2">
+              <div onclick="fill('alice_admin','admin123')" class="flex items-center justify-between cursor-pointer hover:bg-white rounded-lg p-2 transition-all">
+                <div class="flex items-center gap-3"><span class="tag-admin text-xs font-bold px-2 py-1 rounded-full">ADMIN</span><span class="text-sm font-medium text-slate-700">alice_admin</span></div>
+                <span class="text-xs text-slate-400 font-mono">admin123</span>
+              </div>
+              <div onclick="fill('bob_hr','hr1234')" class="flex items-center justify-between cursor-pointer hover:bg-white rounded-lg p-2 transition-all">
+                <div class="flex items-center gap-3"><span class="tag-hr text-xs font-bold px-2 py-1 rounded-full">HR</span><span class="text-sm font-medium text-slate-700">bob_hr</span></div>
+                <span class="text-xs text-slate-400 font-mono">hr1234</span>
+              </div>
+              <div onclick="fill('carol_emp','emp123')" class="flex items-center justify-between cursor-pointer hover:bg-white rounded-lg p-2 transition-all">
+                <div class="flex items-center gap-3"><span class="tag-employee text-xs font-bold px-2 py-1 rounded-full">EMP</span><span class="text-sm font-medium text-slate-700">carol_emp</span></div>
+                <span class="text-xs text-slate-400 font-mono">emp123</span>
+              </div>
+              <div onclick="fill('dave_intern','int123')" class="flex items-center justify-between cursor-pointer hover:bg-white rounded-lg p-2 transition-all">
+                <div class="flex items-center gap-3"><span class="tag-intern text-xs font-bold px-2 py-1 rounded-full">INTERN</span><span class="text-sm font-medium text-slate-700">dave_intern</span></div>
+                <span class="text-xs text-slate-400 font-mono">int123</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="form-register" class="p-8 hidden">
+          <div class="space-y-4">
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Username</label>
+                <input id="ru" type="text" class="input-field w-full px-4 py-3 rounded-xl text-sm"/>
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Role</label>
+                <select id="rr" class="input-field w-full px-4 py-3 rounded-xl text-sm">
+                  <option value="intern">Intern</option><option value="employee">Employee</option>
+                  <option value="hr">HR</option><option value="admin">Admin</option>
+                </select>
+              </div>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Email</label>
+              <input id="re" type="email" class="input-field w-full px-4 py-3 rounded-xl text-sm"/>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Password</label>
+              <input id="rp" type="password" class="input-field w-full px-4 py-3 rounded-xl text-sm"/>
+            </div>
+            <button onclick="doRegister()" class="btn-primary w-full py-3 rounded-xl text-sm">Create account →</button>
+            <div id="reg-msg" class="hidden text-sm text-center py-2 px-4 rounded-lg"></div>
+          </div>
+        </div>
+      </div>
+      <p class="text-center text-slate-500 text-xs mt-6">Secured with JWT · RBAC Enforced · TechNova Inc.</p>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN APP -->
+<div id="page-app" class="page min-h-screen flex" style="display:none">
+  <aside class="flex flex-col flex-shrink-0 h-screen sticky top-0" style="width:260px;background:#0f172a;border-right:1px solid #1e293b">
+    <div class="px-5 py-5" style="border-bottom:1px solid #1e293b">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-xl flex items-center justify-center text-lg" style="background:rgba(79,70,229,.25);border:1px solid rgba(99,102,241,.3)">🧠</div>
+        <div><p class="text-white font-bold text-sm">NovaMind AI</p><p class="text-slate-500 text-xs mt-0.5">Enterprise Platform</p></div>
+      </div>
+    </div>
+    <div class="mx-3 mt-4 p-3 rounded-xl" style="background:#1e293b">
+      <div class="flex items-center gap-3">
+        <div id="sb-avatar" class="w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0" style="background:#3730a3;color:#c7d2fe">?</div>
+        <div class="min-w-0"><p id="sb-name" class="text-white text-sm font-semibold truncate">—</p><p class="text-slate-500 text-xs">TechNova Inc.</p></div>
+      </div>
+      <div id="sb-badge" class="mt-2"></div>
+    </div>
+    <nav class="flex-1 px-3 mt-6 space-y-1">
+      <p class="text-slate-600 text-xs font-semibold uppercase tracking-widest px-3 mb-3">Workspace</p>
+      <button onclick="goTo('chat')" id="nav-chat" class="nav-item active-nav w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-slate-200" style="border-left:3px solid #6366f1">
+        <span class="w-5 text-center">💬</span><span>AI Chat</span>
+      </button>
+      <button onclick="goTo('history')" id="nav-history" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-slate-400" style="border-left:3px solid transparent">
+        <span class="w-5 text-center">🕐</span><span>History</span>
+      </button>
+      <button onclick="goTo('upload')" id="nav-upload" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-slate-400" style="border-left:3px solid transparent">
+        <span class="w-5 text-center">📤</span><span>Upload Docs</span>
+        <span id="admin-badge" class="hidden ml-auto text-xs bg-amber-900 text-amber-200 px-2 py-0.5 rounded-full">Admin</span>
+      </button>
+      <div class="my-4" style="border-top:1px solid #1e293b"></div>
+      <p class="text-slate-600 text-xs font-semibold uppercase tracking-widest px-3 mb-3">Access level</p>
+      <div id="dept-pills" class="px-2 flex flex-wrap gap-1.5"></div>
+    </nav>
+    <div class="p-3" style="border-top:1px solid #1e293b">
+      <button onclick="doLogout()" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-slate-400 hover:text-red-400 hover:bg-red-900/20 transition-all">
+        <span>🚪</span><span>Sign out</span>
+      </button>
+    </div>
+  </aside>
+
+  <main class="flex-1 flex flex-col min-h-screen overflow-hidden">
+
+    <!-- CHAT -->
+    <div id="view-chat" class="flex flex-col h-screen">
+      <div class="bg-white px-8 py-4 flex items-center justify-between" style="border-bottom:1px solid #e2e8f0">
+        <div>
+          <h2 class="font-bold text-slate-900 text-lg">AI Chat Assistant</h2>
+          <p class="text-slate-500 text-xs mt-0.5">Answers sourced only from your authorized documents</p>
+        </div>
+        <div class="flex items-center gap-6">
+          <div class="text-center"><p id="stat-session" class="text-xl font-bold text-indigo-600">0</p><p class="text-xs text-slate-400">This session</p></div>
+          <div class="text-center"><p id="stat-total" class="text-xl font-bold text-slate-700">—</p><p class="text-xs text-slate-400">Total queries</p></div>
+          <div class="flex items-center gap-2 bg-emerald-50 text-emerald-700 px-3 py-1.5 rounded-full" style="border:1px solid #a7f3d0">
+            <span class="w-2 h-2 bg-emerald-500 rounded-full"></span><span class="text-xs font-semibold">RBAC Active</span>
+          </div>
+        </div>
+      </div>
+      <div id="chat-msgs" class="flex-1 overflow-y-auto px-8 py-6 space-y-6" style="background:#f8fafc;scroll-behavior:smooth">
+        <div id="chat-welcome" class="flex flex-col items-center justify-center h-full text-center py-16">
+          <div class="w-16 h-16 rounded-2xl flex items-center justify-center text-3xl mb-4" style="background:#ede9fe;border:1px solid #ddd6fe">🧠</div>
+          <h3 class="text-xl font-bold text-slate-800 mb-2">What would you like to know?</h3>
+          <p class="text-slate-500 text-sm max-w-sm mb-8">Ask anything about your company documents. I only answer from content you are authorized to access.</p>
+          <div id="sugg-grid" class="grid grid-cols-1 gap-3 w-full max-w-xl"></div>
+        </div>
+      </div>
+      <div class="bg-white px-8 py-5" style="border-top:1px solid #e2e8f0">
+        <div class="flex gap-3 items-end max-w-3xl">
+          <div class="flex-1 relative">
+            <textarea id="chat-input" rows="1" placeholder="Ask anything about company documents..."
+              class="input-field w-full px-5 py-4 rounded-2xl text-sm pr-12" style="min-height:54px;max-height:140px"
+              onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
+            <div id="inp-spinner" class="hidden absolute right-4 bottom-4"><div class="spinner"></div></div>
+          </div>
+          <button onclick="sendMsg()" id="send-btn" class="btn-primary w-14 h-14 rounded-2xl flex items-center justify-center text-xl flex-shrink-0">➤</button>
+        </div>
+        <p class="text-xs text-slate-400 mt-2">Press <kbd class="bg-slate-100 px-1.5 py-0.5 rounded font-mono">Enter</kbd> to send · <kbd class="bg-slate-100 px-1.5 py-0.5 rounded font-mono">Shift+Enter</kbd> for new line</p>
+      </div>
+    </div>
+
+    <!-- HISTORY -->
+    <div id="view-history" class="hidden flex-col h-screen overflow-y-auto">
+      <div class="bg-white px-8 py-4 sticky top-0 z-10" style="border-bottom:1px solid #e2e8f0">
+        <h2 class="font-bold text-slate-900 text-lg">Chat History</h2>
+        <p class="text-slate-500 text-xs mt-0.5">Your saved conversations across all sessions</p>
+      </div>
+      <div class="px-8 py-6">
+        <div class="grid grid-cols-3 gap-4 mb-6">
+          <div class="stat-card bg-white rounded-xl p-4" style="border:1px solid #e2e8f0"><p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Total questions</p><p id="hist-total" class="text-2xl font-bold text-slate-900 mt-1">—</p></div>
+          <div class="stat-card bg-white rounded-xl p-4" style="border:1px solid #e2e8f0"><p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Latest session</p><p id="hist-latest" class="text-sm font-bold text-slate-900 mt-2">—</p></div>
+          <div class="stat-card bg-white rounded-xl p-4" style="border:1px solid #e2e8f0"><p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Unique sources</p><p id="hist-sources" class="text-2xl font-bold text-slate-900 mt-1">—</p></div>
+        </div>
+        <div id="hist-list" class="space-y-3"></div>
+      </div>
+    </div>
+
+    <!-- UPLOAD -->
+    <div id="view-upload" class="hidden flex-col h-screen overflow-y-auto">
+      <div class="bg-white px-8 py-4 sticky top-0 z-10" style="border-bottom:1px solid #e2e8f0">
+        <h2 class="font-bold text-slate-900 text-lg">Document Management</h2>
+        <p class="text-slate-500 text-xs mt-0.5">Upload and manage knowledge base documents</p>
+      </div>
+      <div class="px-8 py-6 max-w-3xl">
+        <div id="upload-denied" class="hidden bg-red-50 border border-red-200 rounded-2xl p-8 text-center">
+          <div class="text-4xl mb-3">🔒</div><h3 class="text-lg font-bold text-red-800">Admin access required</h3>
+          <p class="text-red-600 text-sm mt-2">Contact an administrator to upload documents.</p>
+        </div>
+        <div id="upload-section">
+          <div class="bg-white rounded-2xl p-6 mb-6" style="border:1px solid #e2e8f0">
+            <h3 class="font-bold text-slate-900 mb-5">📄 Upload new document</h3>
+            <div id="drop-zone" class="upload-zone rounded-xl p-10 text-center mb-5 cursor-pointer"
+              onclick="document.getElementById('file-inp').click()"
+              ondragover="dragOver(event)" ondragleave="dragLeave(event)" ondrop="dropFile(event)">
+              <div id="drop-content"><div class="text-4xl mb-3">📂</div><p class="font-semibold text-slate-700">Click to choose or drag a file here</p><p class="text-slate-400 text-sm mt-1">Supports .txt and .pdf files</p></div>
+              <div id="drop-selected" class="hidden"><div class="text-4xl mb-3">✅</div><p id="drop-name" class="font-semibold text-indigo-700"></p><p class="text-slate-400 text-sm mt-1">Ready to upload</p></div>
+            </div>
+            <input id="file-inp" type="file" accept=".txt,.pdf" class="hidden" onchange="fileChosen(this)"/>
+            <div class="grid grid-cols-2 gap-4 mb-5">
+              <div>
+                <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Department</label>
+                <select id="up-dept" class="input-field w-full px-4 py-3 rounded-xl text-sm">
+                  <option value="public">Public</option><option value="engineering">Engineering</option>
+                  <option value="hr">HR</option><option value="finance">Finance</option>
+                  <option value="legal">Legal</option><option value="general">General</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Access level</label>
+                <select id="up-level" class="input-field w-full px-4 py-3 rounded-xl text-sm">
+                  <option value="public">Public</option><option value="internal">Internal</option>
+                  <option value="confidential">Confidential</option><option value="restricted">Restricted</option>
+                </select>
+              </div>
+            </div>
+            <button onclick="doUpload()" id="up-btn" class="btn-primary w-full py-3.5 rounded-xl text-sm flex items-center justify-center gap-2"><span>📤</span><span>Upload and ingest document</span></button>
+            <div id="up-result" class="hidden mt-4 text-sm p-4 rounded-xl"></div>
+          </div>
+          <div class="bg-white rounded-2xl p-6" style="border:1px solid #e2e8f0">
+            <div class="flex items-center justify-between mb-5">
+              <h3 class="font-bold text-slate-900">👥 User management</h3>
+              <button onclick="loadUsers()" class="btn-secondary px-4 py-2 rounded-lg text-xs">Refresh list</button>
+            </div>
+            <div id="users-list" class="space-y-2"><p class="text-slate-400 text-sm">Click refresh to load users.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- Toast -->
+<div id="toast" class="toast hidden max-w-sm bg-white rounded-xl shadow-xl p-4 flex items-start gap-3" style="border:1px solid #e2e8f0">
+  <span id="toast-icon" class="text-xl">✅</span>
+  <div><p id="toast-title" class="font-semibold text-sm text-slate-900"></p><p id="toast-msg" class="text-xs text-slate-500 mt-0.5"></p></div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════
+// STATE — stored in sessionStorage with unique keys
+// ═══════════════════════════════════════════════════════
+const API = 'http://localhost:8000';
+let TOKEN    = sessionStorage.getItem('nm_token')    || null;
+let USERNAME = sessionStorage.getItem('nm_username') || null;
+let ROLE     = sessionStorage.getItem('nm_role')     || null;
+let sessionQ = 0;
+let pickedFile = null;
+
+// ═══════════════════════════════════════════════════════
+// HELPERS
+// ═══════════════════════════════════════════════════════
+const G   = id => document.getElementById(id);
+const esc = s  => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+const now = () => new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
+const ini = n  => { const p=n.split('_'); return p.length>1?(p[0][0]+p[p.length-1][0]).toUpperCase():n.slice(0,2).toUpperCase(); };
+const autoResize = el => { el.style.height='auto'; el.style.height=Math.min(el.scrollHeight,140)+'px'; };
+const togglePwd  = id => { const e=G(id); e.type=e.type==='password'?'text':'password'; };
+
+function showToast(title,msg,type='success'){
+  G('toast-title').textContent=title; G('toast-msg').textContent=msg;
+  G('toast-icon').textContent=type==='success'?'✅':type==='error'?'❌':'ℹ️';
+  G('toast').classList.remove('hidden');
+  setTimeout(()=>G('toast').classList.add('hidden'),3500);
+}
+
+// ═══════════════════════════════════════════════════════
+// API FETCH — THE GOLDEN RULE:
+// This function NEVER calls doLogout().
+// NEVER redirects. NEVER touches the UI.
+// It just returns {ok, status, data}.
+// All UI decisions happen in the calling function.
+// ═══════════════════════════════════════════════════════
+async function api(path, opts={}){
+  const h = {'Content-Type':'application/json'};
+  if(TOKEN) h['Authorization'] = 'Bearer ' + TOKEN;
+  try{
+    const res  = await fetch(API+path, {...opts, headers:{...h,...(opts.headers||{})}});
+    let   data = {};
+    try{ data = await res.json(); }catch(e){}
+    return { ok:res.ok, status:res.status, data };
+  }catch(e){
+    return { ok:false, status:0, data:{detail:'Cannot reach backend. Is FastAPI running on port 8000?'} };
+  }
+}
+
+// ═══════════════════════════════════════════════════════
+// AUTH
+// ═══════════════════════════════════════════════════════
+function switchTab(t){
+  const si=t==='signin';
+  G('form-signin').classList.toggle('hidden',!si);
+  G('form-register').classList.toggle('hidden',si);
+  G('tab-signin').className  =`flex-1 py-4 text-sm font-semibold border-b-2 transition-all ${si ?'text-indigo-600 border-indigo-600':'text-slate-400 border-transparent'}`;
+  G('tab-register').className=`flex-1 py-4 text-sm font-semibold border-b-2 transition-all ${!si?'text-indigo-600 border-indigo-600':'text-slate-400 border-transparent'}`;
+}
+const fill = (u,p) => { G('li-user').value=u; G('li-pass').value=p; };
+
+async function doLogin(){
+  const u=G('li-user').value.trim(), p=G('li-pass').value;
+  if(!u||!p){ showLoginErr('Please enter username and password.'); return; }
+  G('login-btn').innerHTML='<div class="spinner"></div>'; G('login-btn').disabled=true;
+  try{
+    const res = await fetch(API+'/login',{
+      method:'POST', body:new URLSearchParams({username:u,password:p}),
+      headers:{'Content-Type':'application/x-www-form-urlencoded'}
+    });
+    const d = await res.json();
+    if(res.ok){
+      TOKEN=d.access_token; USERNAME=d.username; ROLE=d.role;
+      sessionStorage.setItem('nm_token',   TOKEN);
+      sessionStorage.setItem('nm_username',USERNAME);
+      sessionStorage.setItem('nm_role',    ROLE);
+      enterApp();
+    } else {
+      showLoginErr(d.detail||'Login failed. Check username and password.');
+    }
+  }catch(e){
+    showLoginErr('Cannot reach backend. Make sure FastAPI is running on port 8000.');
+  }
+  G('login-btn').innerHTML='<span>Sign in to NovaMind</span><span>→</span>'; G('login-btn').disabled=false;
+}
+
+function showLoginErr(msg){ const e=G('login-err'); e.textContent=msg; e.classList.remove('hidden'); setTimeout(()=>e.classList.add('hidden'),5000); }
+
+async function doRegister(){
+  const u=G('ru').value.trim(),e=G('re').value.trim(),p=G('rp').value,r=G('rr').value;
+  if(!u||!e||!p){ showRegMsg('Please fill all fields.','error'); return; }
+  const {ok,data}=await api('/register',{method:'POST',body:JSON.stringify({username:u,email:e,password:p,role:r})});
+  if(ok){ showRegMsg('Account created! You can now sign in.','success'); setTimeout(()=>switchTab('signin'),1500); }
+  else showRegMsg(data.detail||'Registration failed.','error');
+}
+function showRegMsg(msg,type){ const e=G('reg-msg'); e.textContent=msg; e.className=`text-sm text-center py-2 px-4 rounded-lg ${type==='success'?'bg-green-50 text-green-700':'bg-red-50 text-red-700'}`; e.classList.remove('hidden'); }
+
+// ═══════════════════════════════════════════════════════
+// ENTER APP
+// ═══════════════════════════════════════════════════════
+async function enterApp(){
+  G('page-login').style.display='none';
+  G('page-app').style.display='flex';
+  G('sb-avatar').textContent=ini(USERNAME);
+  G('sb-name').textContent=USERNAME;
+  const bc={admin:'tag-admin',hr:'tag-hr',employee:'tag-employee',intern:'tag-intern'};
+  G('sb-badge').innerHTML=`<span class="${bc[ROLE]||'tag-intern'} text-xs font-bold px-3 py-1 rounded-full">${ROLE.toUpperCase()}</span>`;
+  if(ROLE==='admin') G('admin-badge').classList.remove('hidden');
+  // Load dept pills — silently ignore failure
+  const {data}=await api('/me');
+  if(data.allowed_departments){
+    const dc={public:'public',hr:'hr',engineering:'engineering',finance:'finance',legal:'legal',executive:'executive',general:'general'};
+    G('dept-pills').innerHTML=data.allowed_departments.map(d=>`<span class="dept-pill ${dc[d]||''} text-xs font-semibold px-2.5 py-1 rounded-lg">${d}</span>`).join('');
+  }
+  loadSuggestions();
+  loadTotalCount();
+  goTo('chat');
+}
+
+// ═══════════════════════════════════════════════════════
+// LOGOUT — ONLY called from Sign out button click
+// ═══════════════════════════════════════════════════════
+function doLogout(){
+  TOKEN=null; USERNAME=null; ROLE=null; sessionQ=0;
+  sessionStorage.removeItem('nm_token');
+  sessionStorage.removeItem('nm_username');
+  sessionStorage.removeItem('nm_role');
+  G('page-app').style.display='none';
+  G('page-login').style.display='flex';
+  G('li-user').value=''; G('li-pass').value='';
+  G('admin-badge').classList.add('hidden');
+  G('stat-session').textContent='0'; G('stat-total').textContent='—';
+  G('chat-msgs').innerHTML=`<div id="chat-welcome" class="flex flex-col items-center justify-center h-full text-center py-16">
+    <div class="w-16 h-16 rounded-2xl flex items-center justify-center text-3xl mb-4" style="background:#ede9fe;border:1px solid #ddd6fe">🧠</div>
+    <h3 class="text-xl font-bold text-slate-800 mb-2">What would you like to know?</h3>
+    <p class="text-slate-500 text-sm max-w-sm mb-8">Ask anything about your company documents.</p>
+    <div id="sugg-grid" class="grid grid-cols-1 gap-3 w-full max-w-xl"></div>
+  </div>`;
+}
+
+// ═══════════════════════════════════════════════════════
+// NAVIGATION
+// ═══════════════════════════════════════════════════════
+function goTo(view){
+  ['chat','history','upload'].forEach(v=>{
+    const el=G('view-'+v), nav=G('nav-'+v);
+    el.style.display=v===view?'flex':'none';
+    el.classList.toggle('hidden',v!==view);
+    if(v===view){
+      nav.classList.add('active-nav'); nav.style.borderLeft='3px solid #6366f1';
+      nav.classList.remove('text-slate-400'); nav.classList.add('text-slate-200');
+    }else{
+      nav.classList.remove('active-nav'); nav.style.borderLeft='3px solid transparent';
+      nav.classList.add('text-slate-400'); nav.classList.remove('text-slate-200');
+    }
+  });
+  if(view==='history') loadHistory();
+  if(view==='upload')  setupUpload();
+}
+
+// ═══════════════════════════════════════════════════════
+// SUGGESTIONS
+// ═══════════════════════════════════════════════════════
+function loadSuggestions(){
+  const map={
+    admin:[{i:'💰',t:'What is our annual budget?'},{i:'👔',t:'What are the salary bands for senior employees?'},{i:'☁️',t:'What AWS services does TechNova use?'},{i:'🔒',t:'What is the data breach response process?'}],
+    hr:   [{i:'💵',t:'What are the salary bands?'},{i:'🌟',t:'What is the promotion criteria?'},{i:'👶',t:'What is the parental leave policy?'},{i:'🎁',t:'What is the referral bonus for senior hires?'}],
+    employee:[{i:'☁️',t:'What AWS services do we use?'},{i:'🚀',t:'How do we deploy to production?'},{i:'🛡️',t:'What is the API rate limiting policy?'},{i:'🧪',t:'What tools are used for ML experiment tracking?'}],
+    intern:[{i:'🏢',t:'What does TechNova do?'},{i:'⭐',t:'What are the company core values?'},{i:'📅',t:'What happens in my first week?'},{i:'🕐',t:'What are TechNova office hours?'}]
+  };
+  const sugs=map[ROLE]||map.intern;
+  const grid=G('sugg-grid'); if(!grid) return;
+  grid.innerHTML=sugs.map(s=>`<button onclick="sendSugg('${s.t.replace(/'/g,"\\'")}') "
+    class="flex items-center gap-3 bg-white border border-slate-200 hover:border-indigo-300 hover:bg-indigo-50 text-left px-4 py-3 rounded-xl text-sm text-slate-700 transition-all group">
+    <span class="text-lg">${s.i}</span><span class="flex-1">${s.t}</span>
+    <span class="text-slate-300 group-hover:text-indigo-400">→</span>
+  </button>`).join('');
+}
+const sendSugg = t => { G('chat-input').value=t; sendMsg(); };
+const handleKey= e => { if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMsg();} };
+
+// ═══════════════════════════════════════════════════════
+// SEND MESSAGE
+// KEY: on 401, we show the error IN THE CHAT BUBBLE.
+//      We NEVER redirect to login automatically.
+// ═══════════════════════════════════════════════════════
+async function sendMsg(){
+  const input=G('chat-input'), q=input.value.trim();
+  if(!q) return;
+  const welcome=G('chat-welcome'); if(welcome) welcome.remove();
+  addMsg('user',q,now());
+  input.value=''; input.style.height='auto';
+  sessionQ++; G('stat-session').textContent=sessionQ;
+  const tid='t'+Date.now(); addTyping(tid);
+  G('send-btn').disabled=true;
+  G('inp-spinner').classList.remove('hidden');
+
+  const {ok,status,data} = await api('/ask',{method:'POST',body:JSON.stringify({question:q})});
+  removeTyping(tid);
+
+  if(ok && status===200){
+    // Perfect answer
+    addMsg('ai', data.answer, now(), data.sources||[]);
+    loadTotalCount(); // silently refresh count
+  } else if(status===401){
+    // Token expired → show IN CHAT, never redirect
+    addMsg('ai','⚠️ Your session has expired. Please click Sign out in the sidebar and sign in again to continue.', now(), []);
+  } else if(status===0){
+    // Network error
+    addMsg('ai','❌ Cannot reach the backend server. Please make sure FastAPI is running on port 8000.', now(), []);
+  } else {
+    // Other backend error
+    addMsg('ai','Sorry, something went wrong: '+(data.detail||'Unknown error. Please try again.'), now(), []);
+  }
+
+  G('send-btn').disabled=false;
+  G('inp-spinner').classList.add('hidden');
+}
+
+// ═══════════════════════════════════════════════════════
+// CHAT BUBBLES
+// ═══════════════════════════════════════════════════════
+function addMsg(who,text,time,sources=[]){
+  const msgs=G('chat-msgs');
+  const av=ini(USERNAME||'U');
+  const srcHtml=sources.length?`<div class="flex flex-wrap gap-1.5 mt-3">${sources.map(s=>`<span class="source-badge">📄 ${s}</span>`).join('')}</div>`:'';
+  let html='';
+  if(who==='user'){
+    html=`<div class="msg-appear flex justify-end gap-3 items-end">
+      <div class="max-w-lg"><div class="bg-indigo-600 text-white px-5 py-3.5 rounded-2xl rounded-br-sm text-sm leading-relaxed">${esc(text)}</div>
+      <p class="text-xs text-slate-400 mt-1.5 text-right">${time}</p></div>
+      <div class="w-9 h-9 rounded-full flex-shrink-0 flex items-center justify-center text-xs font-bold" style="background:#3730a3;color:#c7d2fe">${av}</div>
+    </div>`;
+  } else {
+    html=`<div class="msg-appear flex gap-3 items-end">
+      <div class="w-9 h-9 rounded-full flex-shrink-0 flex items-center justify-center text-xs font-bold" style="background:#0f172a;color:#e2e8f0">AI</div>
+      <div class="max-w-2xl"><div class="bg-white border border-slate-200 px-5 py-3.5 rounded-2xl rounded-bl-sm text-sm text-slate-800 leading-relaxed shadow-sm">${esc(text)}${srcHtml}</div>
+      <p class="text-xs text-slate-400 mt-1.5">${time}</p></div>
+    </div>`;
+  }
+  const div=document.createElement('div'); div.innerHTML=html;
+  msgs.appendChild(div.firstElementChild); msgs.scrollTop=msgs.scrollHeight;
+}
+
+function addTyping(id){
+  const msgs=G('chat-msgs');
+  const html=`<div id="${id}" class="msg-appear flex gap-3 items-end">
+    <div class="w-9 h-9 rounded-full flex-shrink-0 flex items-center justify-center text-xs font-bold" style="background:#0f172a;color:#e2e8f0">AI</div>
+    <div class="bg-white border border-slate-200 px-5 py-4 rounded-2xl rounded-bl-sm shadow-sm">
+      <div class="dot-pulse flex gap-1.5"><span></span><span></span><span></span></div>
+    </div>
+  </div>`;
+  const div=document.createElement('div'); div.innerHTML=html;
+  msgs.appendChild(div.firstElementChild); msgs.scrollTop=msgs.scrollHeight;
+}
+const removeTyping = id => { const e=G(id); if(e) e.remove(); };
+
+// ═══════════════════════════════════════════════════════
+// TOTAL COUNT — silently ignore any failure
+// ═══════════════════════════════════════════════════════
+async function loadTotalCount(){
+  try{
+    const {ok,data}=await api('/history?limit=200');
+    if(ok && Array.isArray(data)) G('stat-total').textContent=data.length;
+  }catch(e){ /* silent — never affects UI */ }
+}
+
+// ═══════════════════════════════════════════════════════
+// HISTORY
+// ═══════════════════════════════════════════════════════
+async function loadHistory(){
+  G('hist-list').innerHTML=`<div class="space-y-3">${[1,2,3].map(()=>'<div class="shimmer h-28 rounded-xl"></div>').join('')}</div>`;
+  const {ok,data}=await api('/history?limit=50');
+  if(!ok){ G('hist-list').innerHTML='<p class="text-slate-400">Could not load history.</p>'; return; }
+  if(!data.length){ G('hist-list').innerHTML='<div class="text-center py-16"><div class="text-4xl mb-3">🕐</div><p class="font-semibold text-slate-600">No history yet</p></div>'; return; }
+  G('hist-total').textContent=data.length;
+  G('hist-latest').textContent=data[0].timestamp.slice(0,10);
+  const allSrc=new Set();
+  data.forEach(d=>{ if(d.sources)(typeof d.sources==='string'?JSON.parse(d.sources):d.sources).forEach(s=>allSrc.add(s)); });
+  G('hist-sources').textContent=allSrc.size;
+  G('hist-list').innerHTML=data.map(item=>{
+    const srcs=item.sources?(typeof item.sources==='string'?JSON.parse(item.sources):item.sources):[];
+    const chips=srcs.map(s=>`<span class="source-badge">📄 ${s}</span>`).join('');
+    const ts=item.timestamp.slice(0,16).replace('T',' ');
+    const ans=item.answer.length>250?item.answer.slice(0,250)+'…':item.answer;
+    return`<div class="history-card bg-white rounded-2xl p-5" style="border:1px solid #e2e8f0">
+      <div class="flex items-start gap-3 mb-3"><span class="text-indigo-500 text-lg mt-0.5">❓</span>
+      <p class="font-semibold text-slate-900 text-sm">${esc(item.question)}</p></div>
+      <p class="text-slate-500 text-sm leading-relaxed pl-8">${esc(ans)}</p>
+      <div class="flex items-center justify-between mt-4 pt-4" style="border-top:1px solid #f1f5f9">
+        <div class="flex flex-wrap gap-1.5">${chips}</div>
+        <span class="text-xs text-slate-400">${ts}</span>
+      </div></div>`;
+  }).join('');
+}
+
+// ═══════════════════════════════════════════════════════
+// UPLOAD
+// ═══════════════════════════════════════════════════════
+function setupUpload(){
+  if(ROLE!=='admin'){ G('upload-denied').classList.remove('hidden'); G('upload-section').classList.add('hidden'); }
+  else{ G('upload-denied').classList.add('hidden'); G('upload-section').classList.remove('hidden'); }
+}
+const dragOver  = e => { e.preventDefault(); G('drop-zone').classList.add('drag'); };
+const dragLeave = ()=> G('drop-zone').classList.remove('drag');
+const dropFile  = e => { e.preventDefault(); G('drop-zone').classList.remove('drag'); const f=e.dataTransfer.files[0]; if(f) setFile(f); };
+const fileChosen= i => { if(i.files[0]) setFile(i.files[0]); };
+function setFile(f){ pickedFile=f; G('drop-content').classList.add('hidden'); G('drop-selected').classList.remove('hidden'); G('drop-name').textContent=f.name+' ('+Math.round(f.size/1024)+' KB)'; }
+
+async function doUpload(){
+  if(!pickedFile){ showToast('No file','Please select a file first.','error'); return; }
+  G('up-btn').innerHTML='<div class="spinner"></div> Uploading...'; G('up-btn').disabled=true;
+  const form=new FormData();
+  form.append('file',pickedFile); form.append('department',G('up-dept').value); form.append('access_level',G('up-level').value);
+  try{
+    const res=await fetch(API+'/upload',{method:'POST',headers:{'Authorization':'Bearer '+TOKEN},body:form});
+    const d=await res.json(); const el=G('up-result'); el.classList.remove('hidden');
+    if(res.ok){
+      el.className='mt-4 text-sm p-4 rounded-xl bg-green-50 text-green-800 border border-green-200';
+      el.innerHTML=`<strong>✅ Ingested!</strong> ${d.chunks_created} chunks · Dept: ${d.department} · ${pickedFile.name}`;
+      pickedFile=null; G('drop-content').classList.remove('hidden'); G('drop-selected').classList.add('hidden'); G('file-inp').value='';
+      showToast('Upload successful','Document ingested into knowledge base.');
+    }else{
+      el.className='mt-4 text-sm p-4 rounded-xl bg-red-50 text-red-800 border border-red-200';
+      el.textContent='❌ '+(d.detail||'Upload failed.');
+    }
+  }catch(e){ showToast('Upload failed','Cannot reach backend.','error'); }
+  G('up-btn').innerHTML='<span>📤</span><span>Upload and ingest document</span>'; G('up-btn').disabled=false;
+}
+
+async function loadUsers(){
+  G('users-list').innerHTML='<div class="shimmer h-12 rounded-lg mb-2"></div><div class="shimmer h-12 rounded-lg mb-2"></div><div class="shimmer h-12 rounded-lg"></div>';
+  const {ok,data}=await api('/admin/users');
+  if(!ok){ G('users-list').innerHTML='<p class="text-slate-400 text-sm">Could not load users.</p>'; return; }
+  const rc={admin:'#5b21b6',hr:'#065f46',employee:'#1e40af',intern:'#92400e'};
+  const rb={admin:'#ede9fe',hr:'#d1fae5',employee:'#dbeafe',intern:'#fef3c7'};
+  G('users-list').innerHTML=data.map(u=>`
+    <div class="flex items-center justify-between p-3 rounded-xl hover:bg-slate-50 transition-all" style="border:1px solid #f1f5f9">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0" style="background:${rb[u.role]||'#f1f5f9'};color:${rc[u.role]||'#374151'}">${ini(u.username)}</div>
+        <div><p class="text-sm font-semibold text-slate-900">${u.username}</p><p class="text-xs text-slate-400">${u.email}</p></div>
+      </div>
+      <span class="text-xs font-bold px-3 py-1.5 rounded-full" style="background:${rb[u.role]||'#f1f5f9'};color:${rc[u.role]||'#374151'}">${u.role.toUpperCase()}</span>
+    </div>`).join('');
+}
+
+// ═══════════════════════════════════════════════════════
+// BOOT — restore session on page load
+// Simple, direct, no network call needed.
+// If token is expired, user will see the error in the
+// chat bubble when they ask a question — NOT a redirect.
+// ═══════════════════════════════════════════════════════
+if(TOKEN && USERNAME && ROLE){
+  enterApp();
+}
+</script>
+</body>
+</html>

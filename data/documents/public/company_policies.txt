@@ -1,0 +1,66 @@
+TECHNOVA INC. — COMPANY POLICIES & GUIDELINES
+==============================================
+Department: Public
+Access: All Staff
+
+WORK FROM HOME POLICY
+---------------------
+TechNova supports flexible remote work for all employees.
+
+Core hours: All employees must be available online between 10 AM and 4 PM in their local timezone.
+Full remote: Employees may work fully remote with manager approval.
+Hybrid option: Office attendance is encouraged on Tuesdays and Thursdays.
+Equipment: The company provides a laptop, monitor, and headset for all remote employees.
+Internet allowance: Remote employees receive 1000 rupees per month as internet reimbursement.
+
+LEAVE POLICY
+------------
+Casual Leave: 12 days per year (cannot be carried forward)
+Sick Leave: 10 days per year (requires medical certificate for more than 2 consecutive days)
+Earned Leave: 15 days per year (can be carried forward up to 30 days)
+Maternity Leave: 26 weeks paid leave as per government regulations
+Paternity Leave: 10 days paid leave
+Bereavement Leave: 5 days for immediate family members
+National Holidays: All employees get 10 national and festival holidays per year
+
+To apply for leave, submit a request through the HR portal at least 2 days in advance.
+For emergency leaves, inform your manager directly via phone or WhatsApp.
+
+CODE OF CONDUCT
+---------------
+TechNova expects all employees to maintain the highest standards of professional behavior.
+
+Respect: Treat all colleagues, clients, and vendors with respect regardless of their position.
+Punctuality: Attend all scheduled meetings on time. Notify in advance if you cannot attend.
+Confidentiality: Never share company data, client information, or internal documents outside the organization.
+Social media: Do not post about clients, internal projects, or company financials on social media.
+Conflict of interest: Disclose any potential conflicts of interest to your manager immediately.
+Harassment: Zero tolerance for any form of workplace harassment. Report to HR immediately.
+
+COMMUNICATION TOOLS
+-------------------
+Slack: Primary messaging tool for all internal communication
+Email: For formal communication and client correspondence
+Zoom: For video meetings and team calls
+Notion: For documentation and project tracking
+Jira: For task and sprint management
+
+IT SUPPORT
+----------
+For IT issues, raise a ticket at support.technova.com or email it@technova.com
+Emergency IT support: Call +91 9876543210 (available 9 AM to 9 PM weekdays)
+Software requests must be approved by your manager and submitted to IT with business justification.
+
+OFFICE TIMINGS
+--------------
+Main office: 9 AM to 6 PM, Monday to Friday
+Cafeteria: 8 AM to 8 PM on working days
+Parking: Available on a first-come-first-serve basis. Register your vehicle with admin.
+
+TRAVEL POLICY
+-------------
+Domestic travel: Book at least 3 days in advance through the travel portal
+International travel: Requires VP approval and must be booked 2 weeks in advance
+Daily allowance (domestic): 1500 rupees per day
+Daily allowance (international): 50 USD per day
+All travel expenses must be submitted with receipts within 7 days of return.

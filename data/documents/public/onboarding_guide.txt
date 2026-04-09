@@ -1,0 +1,94 @@
+TECHNOVA INC. — NEW EMPLOYEE ONBOARDING GUIDE
+==============================================
+Department: Public
+Access: All Staff
+
+WELCOME TO TECHNOVA
+-------------------
+We are thrilled to have you on board! This guide will help you get settled in your first 30 days.
+Please read it carefully and reach out to your buddy or HR if you have any questions.
+
+YOUR FIRST DAY CHECKLIST
+-------------------------
+1. Collect your laptop and access card from IT (Ground Floor, Room 101)
+2. Set up your company email: firstname.lastname@technova.com
+3. Join the company Slack workspace using your company email
+4. Complete the mandatory security awareness training on the learning portal
+5. Fill and submit your joining documents to HR (Room 203)
+6. Meet your assigned buddy who will guide you through your first two weeks
+7. Attend the welcome lunch with your team at 1 PM
+
+FIRST WEEK ACTIVITIES
+---------------------
+Day 1: Company orientation with HR, IT setup, meet your manager
+Day 2: Team introductions, tools setup (Slack, Notion, Jira, GitHub)
+Day 3: Shadow your buddy, understand team workflows and ongoing projects
+Day 4: First project briefing with your manager, set 30-day goals
+Day 5: Weekly team standup, retrospective, and one-on-one with manager
+
+TOOLS YOU WILL USE
+------------------
+Slack: Download at slack.com — join workspace technova.slack.com
+Notion: All documentation and wikis — notion.technova.com
+Jira: Sprint and task management — jira.technova.com
+GitHub: Code repositories — github.com/technova
+Zoom: Video meetings — zoom.us (Pro account provided)
+Google Workspace: Gmail, Drive, Docs, Sheets, Calendar
+
+IMPORTANT CONTACTS
+------------------
+HR Team: hr@technova.com | +91 9876501234
+IT Support: it@technova.com | +91 9876543210
+Your Buddy: Assigned during orientation
+Payroll: payroll@technova.com
+Admin: admin@technova.com
+
+PAYROLL INFORMATION
+-------------------
+Salary credited: Last working day of every month
+Pay slips: Available on HR portal by 25th of every month
+Reimbursements: Submit by 15th of the month to receive payment in same month payroll
+Bank account: Submit your bank details to payroll@technova.com within the first 3 days
+PF and ESI: Auto-deducted as per government regulations
+
+30-60-90 DAY PLAN
+-----------------
+First 30 days:
+  - Understand the product, team structure, and codebase
+  - Complete all mandatory trainings
+  - Deliver your first small feature or analysis
+  - Build relationships with immediate team members
+
+First 60 days:
+  - Own a module or deliverable independently
+  - Participate actively in sprint planning and retrospectives
+  - Contribute to documentation and knowledge base
+
+First 90 days:
+  - Deliver a meaningful project milestone
+  - Share learnings with the team
+  - Set 6-month goals with your manager
+
+LEARNING AND DEVELOPMENT
+------------------------
+Each employee gets 2000 rupees per year for courses, books, and certifications.
+Approved platforms: Coursera, Udemy, Pluralsight, O'Reilly, LinkedIn Learning
+To claim: Submit the invoice and course completion certificate to hr@technova.com
+Internal workshops: Held every 2nd Friday of the month — check Slack for schedule
+
+FREQUENTLY ASKED QUESTIONS
+---------------------------
+Q: When will I receive my ID card?
+A: ID cards are issued within 3 working days of joining.
+
+Q: How do I apply for leave in my first month?
+A: Use the HR portal at hr.technova.com. Leave accrues from day one.
+
+Q: How do I raise a purchase request?
+A: Fill the purchase request form on Notion and get your manager's approval.
+
+Q: Can I work from home in my first month?
+A: First 2 weeks require in-office presence. After that, hybrid is available.
+
+Q: Who do I contact for laptop issues?
+A: Email it@technova.com or walk in to Room 101 on the Ground Floor.

@@ -1,0 +1,121 @@
+TECHNOVA INC. — ML AND DATA SCIENCE ENGINEERING GUIDELINES
+===========================================================
+Department: Engineering
+Access: Employees and Above
+
+OVERVIEW
+--------
+This document defines standards and best practices for all machine learning and data science
+work at TechNova. All data scientists and ML engineers must follow these guidelines.
+
+MODEL DEVELOPMENT STANDARDS
+-----------------------------
+All ML projects must follow the standard MLOps lifecycle:
+
+1. Problem Definition
+   - Document the business problem clearly in Notion before starting
+   - Define success metrics (accuracy, F1, AUC, RMSE, etc.) upfront
+   - Get stakeholder sign-off on the success criteria
+
+2. Data Collection and Preparation
+   - All data must be sourced from approved internal databases or licensed external sources
+   - No use of scraped data without legal team approval
+   - Data must be version-controlled using DVC (Data Version Control)
+   - Data quality checks must be documented and automated where possible
+
+3. Exploratory Data Analysis (EDA)
+   - EDA notebook must be stored in the project GitHub repository
+   - Key insights must be summarized in the project Notion page
+   - Data distributions, missing values, outliers must be documented
+
+4. Feature Engineering
+   - Feature definitions must be documented in the feature store (Feast)
+   - Reuse existing features from the feature store before creating new ones
+   - Feature importance analysis must be included in every model report
+
+5. Model Training
+   - All experiments must be tracked using MLflow
+   - Model parameters, metrics, and artifacts must be logged for every run
+   - Minimum 3 baseline models must be trained before choosing the final approach
+   - Cross-validation is mandatory for all classification and regression tasks
+
+6. Model Evaluation
+   - Use held-out test set that was never used during training or validation
+   - Report must include: accuracy metrics, confusion matrix, error analysis
+   - Bias and fairness analysis required for models used in customer-facing products
+   - Model explainability (SHAP values) required for high-stakes decisions
+
+7. Model Deployment
+   - Models are served as REST APIs using FastAPI or Flask
+   - All model APIs must have health check endpoints
+   - A/B testing framework must be used for production model rollouts
+   - Canary deployment: 10 percent traffic to new model, then 50 percent, then 100 percent
+
+8. Model Monitoring
+   - Data drift monitoring using Evidently AI (check weekly)
+   - Performance degradation alert if accuracy drops more than 5 percent
+   - Model retraining triggered automatically when drift score exceeds threshold
+   - Monthly model performance report shared with stakeholders
+
+CODE STANDARDS
+--------------
+Language: Python 3.10 or above
+Formatter: Black (line length 88)
+Linter: Flake8 with PEP8 rules
+Type hints: Required for all functions (mypy checked in CI)
+Docstrings: Google-style docstrings mandatory for all functions and classes
+Unit test coverage: Minimum 80 percent for production code
+All PRs must pass automated tests before merge
+
+REPOSITORY STRUCTURE (standard for all ML projects)
+----------------------------------------------------
+project-name/
+  data/
+    raw/          (never modified)
+    processed/    (cleaned data)
+    features/     (feature store outputs)
+  notebooks/
+    eda/
+    experiments/
+  src/
+    data/         (data loading and preprocessing)
+    features/     (feature engineering)
+    models/       (model training and evaluation)
+    api/          (model serving)
+  tests/
+  configs/
+  models/         (saved model artifacts)
+  reports/
+  README.md
+  requirements.txt
+  Dockerfile
+
+DATA GOVERNANCE
+---------------
+All data used in ML projects must be logged in the data catalog (DataHub).
+Personal data (PII) must be anonymized or pseudonymized before use in training.
+Data retention: Training datasets must be deleted after 12 months unless business-critical.
+Cross-border data transfers must be approved by the legal team.
+GDPR and PDPA compliance is mandatory for all customer data.
+
+APPROVED TOOLS AND LIBRARIES
+------------------------------
+Experiment tracking: MLflow (hosted at mlflow.technova.com)
+Data versioning: DVC with S3 backend
+Feature store: Feast
+Model serving: FastAPI + Docker + Kubernetes
+Monitoring: Evidently AI + Grafana dashboards
+Visualization: Plotly Dash for internal dashboards
+Cloud compute: AWS SageMaker for large training jobs
+Vector databases: Chroma, FAISS, Pinecone
+
+LLM AND GENERATIVE AI PROJECTS
+--------------------------------
+Use approved LLM APIs only: OpenAI, Anthropic, Groq, Cohere
+Never send customer PII to external LLM APIs
+Prompt templates must be version-controlled in GitHub
+RAG pipelines must include source attribution in all responses
+Output filtering required for all customer-facing LLM applications
+LLM costs must be tracked and reported monthly
+
+Contact: ml-platform@technova.com for tooling or infrastructure support.

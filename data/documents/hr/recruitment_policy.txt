@@ -1,0 +1,85 @@
+TECHNOVA INC. — RECRUITMENT AND HIRING POLICY
+=============================================
+Department: HR
+Access: HR Staff Only
+Confidential Document
+
+HIRING PROCESS OVERVIEW
+------------------------
+All hiring at TechNova follows a standardized process to ensure fair, unbiased,
+and efficient recruitment across all departments.
+
+JOB REQUISITION
+---------------
+Step 1: Hiring manager submits a Job Requisition Form (JRF) to HR via the HR portal
+Step 2: HR verifies headcount budget with Finance department
+Step 3: VP of the department approves the requisition
+Step 4: HR creates the job description using approved templates
+Step 5: Position is posted internally for 5 business days first (internal mobility preference)
+Step 6: If no internal candidate, position is posted externally
+
+Approved external job portals: LinkedIn, Naukri, Indeed, AngelList, Instahyre
+
+INTERVIEW PROCESS
+-----------------
+For Engineering and Data Science roles (5 rounds):
+  Round 1: HR screening call (30 minutes) — culture fit, motivation, communication
+  Round 2: Technical screening (60 minutes) — core skills assessment
+  Round 3: Take-home assignment (48 hours to complete)
+  Round 4: Technical deep dive with team (90 minutes)
+  Round 5: Leadership and culture interview with manager and VP (45 minutes)
+
+For Non-Technical roles (3 rounds):
+  Round 1: HR screening call (30 minutes)
+  Round 2: Skills and experience interview with hiring manager (60 minutes)
+  Round 3: Case study and culture fit with team lead (45 minutes)
+
+Interview feedback must be submitted on the HR portal within 24 hours of each round.
+
+OFFER AND NEGOTIATION
+---------------------
+Offers are made only after unanimous hiring committee approval.
+HR makes the verbal offer first before issuing a written offer letter.
+Offer letter is sent within 2 business days of verbal acceptance.
+Standard notice period for new hires: 2 months from joining date.
+Salary negotiation is permissible within the approved band for that level.
+Maximum salary offered to freshers: Mid-level band lower limit.
+
+BACKGROUND VERIFICATION
+-----------------------
+All offers are conditional on background verification (BGV):
+  - Identity verification (Aadhaar or Passport)
+  - Education certificate verification
+  - Previous employment verification (last 5 years)
+  - Criminal record check
+
+BGV is conducted by a third-party agency. Results expected within 10 business days.
+If BGV fails, the offer may be withdrawn with proper notice.
+
+REFERRAL PROGRAM
+----------------
+Employees can refer candidates through the HR portal.
+Referral bonus paid after the referred candidate completes 90 days:
+  Junior level hire: 10000 rupees
+  Mid-level hire: 20000 rupees
+  Senior level hire: 35000 rupees
+  Lead or above: 50000 rupees
+
+Only one referral bonus per hire. Self-referrals are not eligible.
+
+DIVERSITY AND INCLUSION
+-----------------------
+TechNova is committed to building a diverse workforce.
+All job descriptions must use gender-neutral language.
+At least one diverse candidate must be shortlisted for every position.
+Hiring panels must include at least one woman or underrepresented group member.
+Blind resume screening is used for engineering roles to reduce bias.
+
+INTERNSHIP HIRING
+-----------------
+Internships are 2 to 6 months in duration.
+Interns are paid a stipend of 15000 to 25000 rupees per month depending on role.
+Pre-placement offers (PPO) are extended to top-performing interns.
+PPO conversion rate target: 30 percent of interns per batch.
+
+Contact: talent@technova.com for recruitment related queries.

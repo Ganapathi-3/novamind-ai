@@ -1,0 +1,88 @@
+TECHNOVA INC. — PERFORMANCE REVIEW PROCESS
+==========================================
+Department: HR
+Access: HR Staff Only
+Confidential Document
+
+OVERVIEW
+--------
+TechNova conducts structured performance reviews twice a year to ensure employees grow,
+receive fair compensation, and align with company goals.
+
+REVIEW CYCLE
+------------
+Mid-Year Review: July 1 to July 31 (covers January to June performance)
+Annual Review: January 1 to January 31 (covers July to December performance)
+Probation Review: At end of 3-month probation period (for new joiners only)
+
+Performance ratings are awarded on a 5-point scale:
+  5 - Exceptional: Far exceeds all expectations
+  4 - Exceeds Expectations: Consistently surpasses goals
+  3 - Meets Expectations: Achieves all set goals
+  2 - Needs Improvement: Partially meets goals
+  1 - Unsatisfactory: Does not meet expectations
+
+COMPENSATION REVIEW
+-------------------
+Annual increment is linked directly to performance rating:
+
+Rating 5 (Exceptional):        12 to 18 percent salary increment
+Rating 4 (Exceeds):            8 to 12 percent salary increment
+Rating 3 (Meets Expectations): 5 to 8 percent salary increment
+Rating 2 (Needs Improvement):  0 to 3 percent salary increment
+Rating 1 (Unsatisfactory):     No increment, performance improvement plan initiated
+
+Increments are effective from April 1 each year.
+Promotion decisions are made separately and may include additional salary revisions.
+
+PROMOTION CRITERIA
+------------------
+To be considered for promotion an employee must:
+  - Have completed minimum 18 months in the current role
+  - Have a minimum rating of 4 in the most recent two reviews
+  - Have demonstrated ownership of projects beyond their current scope
+  - Have a recommendation from their direct manager
+  - Pass a promotion panel interview with department head and HR
+
+Promotion levels:
+  Junior → Mid-Level: 18 months minimum
+  Mid-Level → Senior: 24 months minimum
+  Senior → Lead/Staff: 30 months minimum + technical presentation
+  Lead → Manager: Separate management track assessment required
+
+PERFORMANCE IMPROVEMENT PLAN (PIP)
+-----------------------------------
+A PIP is initiated for employees with rating 1 or two consecutive rating 2 reviews.
+
+PIP duration: 60 to 90 days
+PIP includes: Specific measurable goals, bi-weekly check-ins with manager and HR
+Outcome options:
+  - Successfully completes PIP: Continues employment, reviewed in 3 months
+  - Does not complete PIP: Employment may be terminated with notice period
+
+REVIEW PROCESS STEPS
+---------------------
+Step 1: Employee completes self-assessment on HR portal (first 7 days of review month)
+Step 2: Manager reviews self-assessment and adds manager comments (days 8 to 14)
+Step 3: Skip-level manager reviews and approves (days 15 to 18)
+Step 4: HR calibration session across all departments (days 19 to 21)
+Step 5: Manager delivers feedback to employee in one-on-one meeting (days 22 to 28)
+Step 6: Employee acknowledges review on HR portal (days 29 to 31)
+
+GOAL SETTING
+------------
+Each employee must set 4 to 6 SMART goals at the start of each review period.
+Goals must be agreed upon by both the employee and manager and logged in Notion.
+
+Goal categories:
+  - Business impact goals (50 percent weightage)
+  - Technical or skill development goals (30 percent weightage)
+  - Collaboration and culture goals (20 percent weightage)
+
+CONFIDENTIALITY
+---------------
+All performance ratings, salary information, and PIP details are strictly confidential.
+HR staff must not discuss individual ratings outside of formal review processes.
+Breach of confidentiality is a serious misconduct and may result in disciplinary action.
+
+Contact: hr-director@technova.com for any questions about the review process.

@@ -1,0 +1,28 @@
+Set-Content -Path .gitignore -Value "# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+venv/
+env/
+.env
+*.egg-info/
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Vector store (too large for GitHub)
+vector_store/
+
+# IDE
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log"

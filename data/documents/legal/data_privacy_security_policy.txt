@@ -1,0 +1,124 @@
+TECHNOVA INC. — DATA PRIVACY AND SECURITY POLICY
+=================================================
+Department: Legal
+Access: Admin Only
+Confidential Document
+
+OVERVIEW
+--------
+TechNova is committed to protecting personal data in compliance with applicable data
+protection laws including India's Digital Personal Data Protection Act 2023 (DPDPA),
+GDPR (for EU customer data), and other regional regulations.
+
+This policy applies to all employees, contractors, vendors, and partners who process
+personal data on behalf of TechNova.
+
+DATA CLASSIFICATION
+-------------------
+TechNova classifies data into four categories:
+
+Level 1 — Public:
+  Definition: Information intended for public consumption
+  Examples: Marketing materials, public website content, press releases
+  Handling: No restrictions on sharing
+
+Level 2 — Internal:
+  Definition: General business information not meant for external audiences
+  Examples: Internal policies, meeting notes, employee directories
+  Handling: Share only with employees, do not send to external parties
+
+Level 3 — Confidential:
+  Definition: Sensitive business information with restricted access
+  Examples: Salary data, performance reviews, customer contracts, financial reports
+  Handling: Share only with authorized personnel, encrypt when transmitting
+
+Level 4 — Restricted:
+  Definition: Highly sensitive data with strict access controls
+  Examples: Customer PII, authentication credentials, source code, fundraising data
+  Handling: Encrypt at rest and in transit, audit all access, need-to-know basis only
+
+PERSONAL DATA HANDLING
+-----------------------
+Personal data includes: Name, email, phone number, address, financial details,
+device identifiers, location data, biometric data, health information.
+
+Employees must:
+  - Collect only the minimum data necessary for the business purpose
+  - Store personal data only in approved systems (not personal drives or email)
+  - Never share personal data with unauthorized third parties
+  - Report any suspected data breach to security@technova.com within 2 hours
+  - Delete personal data when it is no longer needed for its purpose
+
+Data retention periods:
+  Customer data: 5 years after contract end
+  Employee data: 7 years after employment ends
+  Transaction data: 10 years (regulatory requirement)
+  Marketing data: 2 years from last interaction
+  Application logs: 90 days
+
+SECURITY REQUIREMENTS
+---------------------
+Password policy:
+  Minimum 12 characters, must include uppercase, lowercase, numbers, and symbols
+  Password rotation every 90 days for admin accounts
+  No password reuse for last 10 passwords
+  Multi-Factor Authentication (MFA) is mandatory for all employees
+
+Device security:
+  Company laptops must have full-disk encryption enabled
+  Screen lock activates after 5 minutes of inactivity
+  No installation of unapproved software on company devices
+  Lost or stolen devices must be reported to IT within 1 hour
+
+Network security:
+  Use company VPN when accessing internal systems remotely
+  Do not connect to public WiFi without VPN
+  Guest WiFi at office is for visitors only — employees must use corporate network
+  Never connect personal devices to the corporate network
+
+EMAIL AND COMMUNICATION:
+  Do not send confidential data via personal email
+  Encrypt email attachments containing Level 3 or Level 4 data
+  Be alert for phishing emails — report suspicious emails to security@technova.com
+  Never click links or download attachments from unknown senders
+
+INCIDENT RESPONSE
+-----------------
+If you suspect a data breach or security incident:
+
+Step 1: Do not try to investigate or fix it yourself
+Step 2: Immediately report to security@technova.com and call +91 9876509999
+Step 3: Preserve evidence — do not delete files or logs
+Step 4: The Security team will assess severity and lead the response
+Step 5: Regulatory notification within 72 hours if customer data is involved (GDPR)
+Step 6: Post-incident report and remediation plan within 14 days
+
+THIRD PARTY AND VENDOR SECURITY
+---------------------------------
+All vendors who process TechNova data must sign a Data Processing Agreement (DPA).
+Vendor security assessments required annually for critical vendors.
+Customer data must never be stored on vendor systems without explicit approval.
+AI and LLM API usage: Customer PII must never be sent to external AI APIs.
+
+EMPLOYEE OBLIGATIONS
+--------------------
+All employees must:
+  - Complete annual data privacy and security training
+  - Sign the Data Protection and Confidentiality Agreement on joining
+  - Report policy violations without fear of retaliation
+  - Understand that violations may result in disciplinary action including termination
+
+RIGHTS OF DATA SUBJECTS
+-----------------------
+Individuals whose personal data we hold have the right to:
+  - Access their personal data
+  - Correct inaccurate data
+  - Request deletion of their data
+  - Object to processing
+  - Data portability
+
+All data subject requests must be forwarded to privacy@technova.com within 24 hours.
+We must respond to data subject requests within 30 days.
+
+Contact: legal@technova.com or privacy@technova.com for data privacy queries.
+Last reviewed: March 2024 | Next review: March 2025

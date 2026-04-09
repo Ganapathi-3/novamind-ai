@@ -1,0 +1,35 @@
+ENGINEERING INTERNAL — System Architecture
+
+All services run on AWS using a microservices architecture.
+
+Core Services:
+  Auth Service:      Python FastAPI, PostgreSQL, JWT authentication
+  CRM Service:       Python Django, PostgreSQL and Redis caching
+  Analytics Service: Python FastAPI and Spark, Redshift data warehouse
+  Notifications:     Node.js, SendGrid for email, Twilio for SMS
+
+Infrastructure:
+  Cloud: AWS us-east-1 as primary region
+  Containers: ECS Fargate, migrating to EKS in Q3
+  CI/CD: GitHub Actions to ECR to ECS deployments
+  Monitoring: Datadog APM and PagerDuty alerts
+  Logging: CloudWatch to Elasticsearch to Kibana
+
+Security Standards:
+  - All APIs require JWT authentication
+  - No secrets in code, use AWS Secrets Manager
+  - HTTPS enforced everywhere
+  - Rate limiting at 100 requests per minute per user
+  - All PRs require 2 approvals before merge
+
+Deployment Process:
+  1. Merge PR to main branch, auto-deploys to staging
+  2. Manual promotion to production requires 2 approvals
+  3. Rollback using scripts/rollback.sh with service and version
+
+Database Standards:
+  - PostgreSQL 15 for all relational data
+  - Redis 7 for caching and sessions
+  - Automated daily backups with 30 day retention
+
+For questions contact the platform team on Slack at engineering-arch channel.
