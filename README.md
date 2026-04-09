@@ -1,4 +1,4 @@
-Set-Content -Path README.md -Value "# NovaMind AI - Secure Enterprise AI Assistant
+ NovaMind AI - Secure Enterprise AI Assistant
 
 A full-stack AI application that answers employee questions using company documents,
 with Role-Based Access Control (RBAC) ensuring users only access authorized information.
